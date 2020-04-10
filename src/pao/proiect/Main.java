@@ -43,6 +43,7 @@ public class Main {
 		app.adaugareAutovehicul();
 		app.adaugareAutovehicul();
 		app.adaugareAutovehicul();
+		app.adaugareAutovehicul();
 		app.afisareAutovehicule();
 		app.stergereAutovehicul();
 		app.afisareAutovehicule();
@@ -57,7 +58,8 @@ public class Main {
 		app.afisareVanzari();
 		app.afisareAutovehicule();
 		app.afisareAutovehiculeClient();
-		app.afisareInformatiiClient();
+		app.afisareAutovehiculeDupaPret();
+		app.afisareAutovehicule();
 		
 	}
 

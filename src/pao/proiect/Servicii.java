@@ -230,7 +230,7 @@ public class Servicii {
 			cl.printVehicles();
 	}
 	
-	void afisareInformatiiClient() {
+	/*void afisareInformatiiClient() {
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Introduceti ID-ul clientului: ");
@@ -248,5 +248,13 @@ public class Servicii {
 			System.out.println("Nu exista clientul!");
 		else
 			System.out.println(cl.toString());
+	}*/
+	
+	void afisareAutovehiculeDupaPret() {
+		ArrayList<Autovehicul> stocClone =  (ArrayList<Autovehicul>) this.stocAutovehicule.clone();
+		Collections.sort(stocClone, new AutovehiculComparator());
+		for(Autovehicul a:stocClone) {
+			System.out.println(a.toString());
+		}
 	}
 }
