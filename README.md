@@ -11,4 +11,4 @@ Actiuni:
 -inregistrare vanzare  
 -afisare vanzari  
 -afisare autovehicule achizitionate de catre client  
--afisare informatii despre client  
+-afisare stoc autovehicule dupa pret(crescator)  
