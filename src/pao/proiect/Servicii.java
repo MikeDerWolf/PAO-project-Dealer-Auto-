@@ -3,16 +3,37 @@ import java.util.*;
 
 public class Servicii {
 	private ArrayList<Autovehicul> stocAutovehicule;
+	private ArrayList<Autovehicul> autovehiculeVandute;
 	private TreeSet<Client> clienti;
 	private ArrayList<Vanzare> vanzari;
 	
 	public Servicii() {
 		this.stocAutovehicule = new ArrayList<Autovehicul>();
+		this.autovehiculeVandute = new ArrayList<Autovehicul>();
 		this.clienti = new TreeSet<Client>();
 		this.vanzari = new ArrayList<Vanzare>();
 	}
 	
-	void adaugareAutovehicul() {
+	public ArrayList<Autovehicul> getStocAutovehicule(){
+		return this.stocAutovehicule;
+	}
+	
+	public ArrayList<Autovehicul> getAutovehiculeVandute(){
+		return this.autovehiculeVandute;
+	}
+	
+	public TreeSet<Client> getClienti(){
+		return this.clienti;
+	}
+	
+	public ArrayList<Vanzare> getVanzari(){
+		return this.vanzari;
+	}
+	
+	
+	
+	public void adaugareAutovehicul() {
+		System.out.println("Adaugare autovehicul:");
 		System.out.println("Tip autovehicul (1 - Motocicleta   2 - Masina   3 - Autobuz   4 - Camion): ");
 		String marca;
 		int anFabricatie;
@@ -101,16 +122,20 @@ public class Servicii {
 			default:
 				System.out.println("Optiune incorecta!");
 		}
+		Audit.scrieActiune("Adaugare autovehicul");
 		
 	}
 	
-	void afisareAutovehicule() {
+	public void afisareAutovehicule() {
+		System.out.println("Stoc autovehicule:");
 		for(Autovehicul a:this.stocAutovehicule) {
 			System.out.println(a.toString());
 		}
+		Audit.scrieActiune("Afisare autovehicule");
 	}
 	
-	void stergereAutovehicul() {
+	public void stergereAutovehicul() {
+		System.out.println("Stergere autovehicul:");
 		System.out.println("Introduceti ID-ul autovehiculului: ");
 		
 		Scanner scan = new Scanner(System.in);
@@ -129,9 +154,19 @@ public class Servicii {
 		else
 			this.stocAutovehicule.remove(index);
 		
+		Audit.scrieActiune("Stergere autovehicul");
 	}
 	
-	void adaugareClient() {
+	public void afisareAutovehiculeVandute() {
+		System.out.println("Autovehicule vandute:");
+		for(Autovehicul a:this.autovehiculeVandute) {
+			System.out.println(a.toString());
+		}
+		Audit.scrieActiune("Afisare autovehicule vandute");
+	}
+	
+	public void adaugareClient() {
+		System.out.println("Adaugare client:");
 		Scanner scan = new Scanner(System.in);
 		System.out.println("Nume: ");
 		String nume = scan.nextLine();
@@ -140,15 +175,21 @@ public class Servicii {
 		
 		Client c = new Client(nume, cnp);
 		this.clienti.add(c);
+		
+		Audit.scrieActiune("Adaugare client");
 	}
 	
-	void afisareClienti() {
+	public void afisareClienti() {
+		System.out.println("Afisare clienti:");
 		for(Client a:this.clienti) {
 			System.out.println(a.toString());
 		}
+		
+		Audit.scrieActiune("Afisare clienti");
 	}
 	
-	void stergereClient() {
+	public void stergereClient() {
+		System.out.println("Stergere client:");
 		System.out.println("Introduceti ID-ul clientului: ");
 		
 		Scanner scan = new Scanner(System.in);
@@ -166,9 +207,12 @@ public class Servicii {
 			System.out.println("Nu exista clientul!");
 		else
 			this.clienti.remove(index);
+		
+		Audit.scrieActiune("Stergere client");
 	}
 	
-	void inregistrareVanzare() {
+	public void inregistrareVanzare() {
+		System.out.println("Inregistrare vanzare:");
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Introduceti ID-ul clientului: ");
@@ -195,22 +239,29 @@ public class Servicii {
 		}
 		
 		if(cl!=null && av!=null) {
-			cl.addVehicle(av);
-			Vanzare v = new Vanzare(cl, av);
+			cl.addVehicle(av.getId());
+			Vanzare v = new Vanzare(cl.getId(), av.getId(), av.getPretRedus());
 			this.vanzari.add(v);
+			this.autovehiculeVandute.add(av);
 			this.stocAutovehicule.remove(av);
 		}
 		else
 			System.out.println("Nu au fost gasite ID-urile!");
+		
+		Audit.scrieActiune("Inregistrare vanzare");
 	}
 	
-	void afisareVanzari() {
+	public void afisareVanzari() {
+		System.out.println("Istoric vanzari:");
 		for(Vanzare a:this.vanzari) {
 			System.out.println(a.toString());
 		}
+		
+		Audit.scrieActiune("Afisare vanzari");
 	}
 	
-	void afisareAutovehiculeClient() {
+	public void afisareAutovehiculeClient() {
+		System.out.println("Afisare autovehicule ale clientului:");
 		Scanner scan = new Scanner(System.in);
 		
 		System.out.println("Introduceti ID-ul clientului: ");
@@ -226,35 +277,48 @@ public class Servicii {
 		}
 		if(cl == null)
 			System.out.println("Nu exista clientul!");
-		else
-			cl.printVehicles();
-	}
-	
-	/*void afisareInformatiiClient() {
-		Scanner scan = new Scanner(System.in);
-		
-		System.out.println("Introduceti ID-ul clientului: ");
-		int idClient = scan.nextInt();
-		scan.nextLine();
-		
-		Client cl = null;
-		for(Client a:this.clienti) {
-			if(a.getId()==idClient) {
-				cl = a;
-				break;
+		else {
+			TreeSet<Integer> aux = cl.getVehicles();
+			if(aux.size() == 0) {
+				System.out.println("Clientul nu a cumparat niciun autovehicul!");
+			}
+			else {
+				for(Integer idVeh:aux)
+					for(Autovehicul veh:this.autovehiculeVandute) {
+						if(idVeh == veh.id) {
+							System.out.println(veh.toString());
+						}
+					}
 			}
 		}
-		if(cl == null)
-			System.out.println("Nu exista clientul!");
-		else
-			System.out.println(cl.toString());
-	}*/
+		
+		Audit.scrieActiune("Afisare autovehicule ale clientului");
+	}
 	
-	void afisareAutovehiculeDupaPret() {
+	public void afisareAutovehiculeDupaPret() {
+		System.out.println("Afisare autovehicule in functie de pret:");
 		ArrayList<Autovehicul> stocClone =  (ArrayList<Autovehicul>) this.stocAutovehicule.clone();
 		Collections.sort(stocClone, new AutovehiculComparator());
 		for(Autovehicul a:stocClone) {
 			System.out.println(a.toString());
 		}
+		
+		Audit.scrieActiune("Afisare autovehicule dupa pret");
+	}
+	
+	void addVanzare(Vanzare v) {
+		this.vanzari.add(v);
+	}
+	
+	void addAutovehicul(Autovehicul a) {
+		this.stocAutovehicule.add(a);
+	}
+	
+	void addAutovehiculVandut(Autovehicul a) {
+		this.autovehiculeVandute.add(a);
+	}
+	
+	void addClient(Client c) {
+		this.clienti.add(c);
 	}
 }

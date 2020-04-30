@@ -4,9 +4,15 @@ import java.time.LocalDate;
 public class Camion extends Autovehicul {
 	private double maxLoad;
 	
+	public Camion() {
+		super();
+		this.tip = "CAMION";
+	}
+	
 	public Camion(String marca, int anFabricatie, double litraj, double pret, double maxLoad) {
 		super(marca, anFabricatie, litraj, pret);
 		this.maxLoad = maxLoad;
+		this.tip = "CAMION";
 	}
 	
 	@Override
@@ -26,7 +32,12 @@ public class Camion extends Autovehicul {
 	}
 	
 	@Override
+	public double getDouble() {
+		return this.maxLoad;
+	}
+	
+	@Override
 	public String toString() {
-		return "CAMION -- " + "Marca: " + this.marca + "  " + "An fabricatie: " + this.anFabricatie + "  " + "Litraj(L): " + this.litraj + "  " + "Pret vanzare(EUR): " + this.getPretRedus() + "  " + "Incarcatura maxima(t): " + this.maxLoad;
+		return this.tip + " -- " + "ID: " + this.id + "  " + "Marca: " + this.marca + "  " + "An fabricatie: " + this.anFabricatie + "  " + "Litraj(L): " + this.litraj + "  " + "Pret vanzare(EUR): " + this.getPretRedus() + "  " + "Incarcatura maxima(t): " + this.maxLoad;
 	}
 }

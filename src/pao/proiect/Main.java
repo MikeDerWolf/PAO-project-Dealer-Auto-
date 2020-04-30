@@ -1,44 +1,52 @@
 package pao.proiect;
-import java.util.ArrayList;
-import java.util.TreeSet;
+import java.util.*;
 
 public class Main {
-
+	
+	public static void optiuni() {
+		System.out.println("Optiuni: \n1) Adaugare autovehicul\n2) Afisare stoc autovehicule\n" + 
+							"3) Stergere autovehicul\n4) Afisare autovehicule vandute\n" +
+							"5) Adaugare client\n6) Afisare clienti\n7) Stergere client\n" + 
+							"8) Inregistrare vanzare\n9) Afisare istoric vanzari\n" + 
+							"10) Afisare autovehicule client\n11) Afisare autovehicule dupa pret\n" + 
+							"0) Iesire\n");
+	}
+	
 	public static void main(String[] args) {
-		/*Autovehicul car = new Autovehicul("Ford", 2016, 44.5, 2100);
-		System.out.println(car.toString());
-		System.out.println(car.getId());
-		
-		Motocicleta m = new Motocicleta("BMW", 2011, 50, 10000, 6);
-		System.out.println(m.toString());
-		System.out.println(m.getId());
-		
-		Masina ma = new Masina("Audi", 2020, 60, 10000, "combi");
-		System.out.println(ma.toString());
-		System.out.println(ma.getId());
-		
-		Autobuz a = new Autobuz("Mercedes", 2012, 80, 10000, 40);
-		System.out.println(a.toString());
-		System.out.println(a.getId());
-		
-		Camion c = new Camion("MAN", 2013, 200, 10000, 23);
-		System.out.println(c.toString());
-		System.out.println(c.getId());
-		
-		System.out.println("-----------------");
-		
-		TreeSet<Autovehicul> veh = new TreeSet<Autovehicul>();
-		veh.add(car);
-		veh.add(ma);
-		veh.add(c);
-		
-		for(Autovehicul i:veh) {
-			System.out.println(i.toString());
-			System.out.println(i.getId());
-		}*/
 		
 		Servicii app = new Servicii();
-		app.adaugareAutovehicul();
+		CitireCSV citireCSV = CitireCSV.getInstance();
+		ScriereCSV scriereCSV = ScriereCSV.getInstance();
+		
+		ArrayList<Autovehicul> autovehiculeFisier = citireCSV.citireAutovehiculeCSV();
+		if(autovehiculeFisier.size() != 0)
+			for(Autovehicul a:autovehiculeFisier) {
+				app.addAutovehicul(a);
+			}
+		autovehiculeFisier.clear();
+		
+		ArrayList<Autovehicul> autovehiculeVanduteFisier = citireCSV.citireAutovehiculeVanduteCSV();
+		if(autovehiculeVanduteFisier.size() != 0)
+			for(Autovehicul a:autovehiculeVanduteFisier) {
+				app.addAutovehiculVandut(a);
+			}
+		autovehiculeVanduteFisier.clear();
+		
+		TreeSet<Client> clientiFisier = citireCSV.citireClientiCSV();
+		if(clientiFisier.size() != 0)
+			for(Client c:clientiFisier) {
+				app.addClient(c);
+			}
+		clientiFisier.clear();
+		
+		ArrayList<Vanzare> vanzariFisier = citireCSV.citireVanzariCSV();
+		if(vanzariFisier.size() != 0)
+			for(Vanzare v:vanzariFisier) {
+				app.addVanzare(v);
+			}
+		vanzariFisier.clear();
+		
+		/*app.adaugareAutovehicul();
 		app.adaugareAutovehicul();
 		app.adaugareAutovehicul();
 		app.adaugareAutovehicul();
@@ -60,6 +68,66 @@ public class Main {
 		app.afisareAutovehiculeClient();
 		app.afisareAutovehiculeDupaPret();
 		app.afisareAutovehicule();
+		app.afisareAutovehiculeVandute();*/
+		
+		//boolean ok = true;
+		Scanner in = new Scanner(System.in);
+        optiuni();
+        int optiune = in.nextInt();
+        
+        
+        while(true) {
+        	
+        	switch(optiune) {
+        		case 1:
+        			app.adaugareAutovehicul();
+        			break;
+        		case 2:
+        			app.afisareAutovehicule();
+        			break;
+        		case 3:
+        			app.stergereAutovehicul();
+        			break;
+        		case 4:
+        			app.afisareAutovehiculeVandute();
+        			break;
+        		case 5:
+        			app.adaugareClient();
+        			break;
+        		case 6:
+        			app.afisareClienti();
+        			break;
+        		case 7:
+        			app.stergereClient();
+        			break;
+        		case 8:
+        			app.inregistrareVanzare();
+        			break;
+        		case 9:
+        			app.afisareVanzari();
+        			break;
+        		case 10:
+        			app.afisareAutovehiculeClient();
+        			break;
+        		case 11:
+        			app.afisareAutovehiculeDupaPret();
+        			break;
+        		case 0:
+        			scriereCSV.scriereAutovehiculeCSV(app.getStocAutovehicule());
+        			scriereCSV.scriereAutovehiculeVanduteCSV(app.getAutovehiculeVandute());
+        			scriereCSV.scriereClientiCSV(app.getClienti());
+        			scriereCSV.scriereVanzariCSV(app.getVanzari());
+        			return;
+        		default:
+        			System.out.println("Incearca din nou!");
+        	}
+        	
+        	optiuni();
+        	optiune = in.nextInt();
+        	
+        }
+		
+		
 		
 	}
 

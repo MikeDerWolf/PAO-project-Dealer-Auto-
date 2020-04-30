@@ -4,9 +4,15 @@ import java.time.LocalDate;
 public class Motocicleta extends Autovehicul {
 	private int aniGarantie;
 	
+	public Motocicleta() {
+		super();
+		this.tip = "MOTOCICLETA";
+	}
+	
 	public Motocicleta(String marca, int anFabricatie, double litraj, double pret, int aniGarantie) {
 		super(marca, anFabricatie, litraj, pret);
 		this.aniGarantie = aniGarantie;
+		this.tip = "MOTOCICLETA";
 	}
 	
 	@Override
@@ -26,7 +32,12 @@ public class Motocicleta extends Autovehicul {
 	}
 	
 	@Override
+	public int getInt() {
+		return this.aniGarantie;
+	}
+	
+	@Override
 	public String toString() {
-		return "MOTOCICLETA -- " + "Marca: " + this.marca + "  " + "An fabricatie: " + this.anFabricatie + "  " + "Litraj(L): " + this.litraj + "  " + "Pret vanzare(EUR): " + this.getPretRedus() + "  " + "Ani garantie: " + this.aniGarantie;
+		return this.tip + " -- " + "ID: " + this.id + "  " + "Marca: " + this.marca + "  " + "An fabricatie: " + this.anFabricatie + "  " + "Litraj(L): " + this.litraj + "  " + "Pret vanzare(EUR): " + this.getPretRedus() + "  " + "Ani garantie: " + this.aniGarantie;
 	}
 }
