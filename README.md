@@ -22,4 +22,4 @@ Fisierul clienti.csv are numar variabil de coloane deoarece fiecare client poate
   
 Etapa 3:  
 Se renunta la folosirea fisierelor CSV pentru asigurarea persistentei si se foloseste o baza de date.  
-Este adaugata interfata grafica  
+Este adaugata interfata grafica.  
