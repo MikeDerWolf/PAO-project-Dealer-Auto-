@@ -122,7 +122,7 @@ public class Servicii {
 			default:
 				System.out.println("Optiune incorecta!");
 		}
-		Audit.scrieActiune("Adaugare autovehicul");
+		Audit.scrieActiune("Adaugare autovehicul", Thread.currentThread().getName());
 		
 	}
 	
@@ -131,7 +131,7 @@ public class Servicii {
 		for(Autovehicul a:this.stocAutovehicule) {
 			System.out.println(a.toString());
 		}
-		Audit.scrieActiune("Afisare autovehicule");
+		Audit.scrieActiune("Afisare autovehicule", Thread.currentThread().getName());
 	}
 	
 	public void stergereAutovehicul() {
@@ -154,7 +154,7 @@ public class Servicii {
 		else
 			this.stocAutovehicule.remove(index);
 		
-		Audit.scrieActiune("Stergere autovehicul");
+		Audit.scrieActiune("Stergere autovehicul", Thread.currentThread().getName());
 	}
 	
 	public void afisareAutovehiculeVandute() {
@@ -162,7 +162,7 @@ public class Servicii {
 		for(Autovehicul a:this.autovehiculeVandute) {
 			System.out.println(a.toString());
 		}
-		Audit.scrieActiune("Afisare autovehicule vandute");
+		Audit.scrieActiune("Afisare autovehicule vandute", Thread.currentThread().getName());
 	}
 	
 	public void adaugareClient() {
@@ -176,7 +176,7 @@ public class Servicii {
 		Client c = new Client(nume, cnp);
 		this.clienti.add(c);
 		
-		Audit.scrieActiune("Adaugare client");
+		Audit.scrieActiune("Adaugare client", Thread.currentThread().getName());
 	}
 	
 	public void afisareClienti() {
@@ -185,7 +185,7 @@ public class Servicii {
 			System.out.println(a.toString());
 		}
 		
-		Audit.scrieActiune("Afisare clienti");
+		Audit.scrieActiune("Afisare clienti", Thread.currentThread().getName());
 	}
 	
 	public void stergereClient() {
@@ -208,7 +208,7 @@ public class Servicii {
 		else
 			this.clienti.remove(index);
 		
-		Audit.scrieActiune("Stergere client");
+		Audit.scrieActiune("Stergere client", Thread.currentThread().getName());
 	}
 	
 	public void inregistrareVanzare() {
@@ -248,7 +248,7 @@ public class Servicii {
 		else
 			System.out.println("Nu au fost gasite ID-urile!");
 		
-		Audit.scrieActiune("Inregistrare vanzare");
+		Audit.scrieActiune("Inregistrare vanzare", Thread.currentThread().getName());
 	}
 	
 	public void afisareVanzari() {
@@ -257,7 +257,7 @@ public class Servicii {
 			System.out.println(a.toString());
 		}
 		
-		Audit.scrieActiune("Afisare vanzari");
+		Audit.scrieActiune("Afisare vanzari", Thread.currentThread().getName());
 	}
 	
 	public void afisareAutovehiculeClient() {
@@ -292,7 +292,7 @@ public class Servicii {
 			}
 		}
 		
-		Audit.scrieActiune("Afisare autovehicule ale clientului");
+		Audit.scrieActiune("Afisare autovehicule ale clientului", Thread.currentThread().getName());
 	}
 	
 	public void afisareAutovehiculeDupaPret() {
@@ -303,7 +303,7 @@ public class Servicii {
 			System.out.println(a.toString());
 		}
 		
-		Audit.scrieActiune("Afisare autovehicule dupa pret");
+		Audit.scrieActiune("Afisare autovehicule dupa pret", Thread.currentThread().getName());
 	}
 	
 	void addVanzare(Vanzare v) {

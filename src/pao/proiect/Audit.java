@@ -5,11 +5,11 @@ import java.io.FileWriter;
 
 public class Audit {
 	
-	public static void scrieActiune(String actiune) {
+	public static void scrieActiune(String actiune, String threadName) {
 		try(FileWriter fileW = new FileWriter("audit.csv", true)) {
 			
 			Date data = new Date();
-			String act = (new StringBuilder()).append(actiune).append(",").append(data.toString()).append("\n").toString();
+			String act = (new StringBuilder()).append(actiune).append(", ").append(data.toString()).append(", ").append(threadName).append("\n").toString();
 			fileW.write(act);
 			fileW.close();
 		
